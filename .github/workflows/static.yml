@@ -1,4 +1,4 @@
-name: Deploy and public VUE site to Pages
+name: Deploy and public VUE site AvtoKatPages to Pages
 
 on:
   push:
