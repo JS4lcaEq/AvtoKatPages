@@ -1,32 +1,56 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from "vue-router";
+
+const url = { uz: "assets/img/AvtoKatUZ_logo_x200.png", 
+            ae: "assets/img/AutoCatAE_logo_x200.png", 
+            kz: "assets/img/AvtoKatKZ_logo_x200.png",
+            face: "assets/img/photo2.jpg"  }
+
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/img/photo2.jpg" width="125" height="125" />
+    <a href="#">
+      <img alt="logo" :src="url.uz" height="100" />
+    </a>
 
-    <div class="wrapper">
+    <label class="grow"
+      >Страна:
+      <select>
+        <option>Россия</option>
+        <option>Узбекистан</option>
+      </select>
+    </label>
+    <label
+      >Язык:
+      <select>
+        <option>русский</option>
+        <option>узбекский</option>
+      </select>
+    </label>
 
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+    <a href="#">Регистрация/Вход</a>
   </header>
-
-  <RouterView />
+  <main>
+    <RouterView />
+  </main>
+  <footer>
+    <div>
+      <a href="#">О нас</a>
+      <p>
+        © 2023, AutoCat<br />
+        All Rights Reserved
+      </p>
+    </div>
+    <a href="#"><img :src="url.ae" height="30" /></a>
+    <a href="#"><img :src="url.kz" height="30" /></a>
+  </footer>
+  <nav>
+    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/about">About</RouterLink>
+  </nav>
+  
 </template>
 
-<style scoped>
 
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-  }
-
-}
-</style>

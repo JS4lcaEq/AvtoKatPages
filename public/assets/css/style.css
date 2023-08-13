@@ -1,0 +1,201 @@
+@font-face {
+    font-family: MartianMono-Regular;
+    src: url(../fonts/MartianMono-Regular.ttf);
+  }
+  .mr { font-family: MartianMono-Regular; }
+  
+  @font-face {
+    font-family: MartianMono-Bold;
+    src: url(../fonts/MartianMono-Bold.ttf);
+  }
+  .mb { font-family: MartianMono-Bold; }
+  
+  @font-face {
+    font-family: MartianMono_Condensed-Regular;
+    src: url(../fonts/MartianMono_Condensed-Regular.ttf);
+  }
+  .mcr { font-family: MartianMono_Condensed-Regular; }
+  
+  @font-face {
+    font-family: MartianMono_Condensed-Light;
+    src: url(../fonts/MartianMono_Condensed-Light.ttf);
+  }
+  .mcl { font-family: MartianMono_Condensed-Light; }
+  
+  @font-face {
+    font-family: MartianMono_Condensed-Bold;
+    src: url(../fonts/MartianMono_Condensed-Bold.ttf);
+  }
+  .mcb { font-family: MartianMono_Condensed-Bold}
+  
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: MartianMono_Condensed-Light, Arial, Helvetica, sans-serif;
+  
+  }
+
+  a {
+    color: #000;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    width: 1440px;
+    margin: auto;
+    padding: 40px 0 40px 0;
+    border-bottom: 1px solid #000;
+  }
+  
+  header select {
+    border: none;
+    background-color: transparent;
+    font-family: MartianMono_Condensed-Light;
+    font-size: 16px;
+    margin-right: 20px;
+  }
+  
+  header select option {
+    font-family: MartianMono_Condensed-Light;;
+  }
+  
+  main {
+    padding: 20px 0;
+    width: 1440px;
+    margin: auto;
+  }
+
+  .personal-area .head-line {
+    display: flex;
+    align-items: center;
+  }
+
+  h3 {
+    font-size: 40px;
+    font-weight: normal;
+  }
+
+  h4 {
+    font-size: 28px;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  .personal-area .head-line a{
+    flex-grow: 10;
+    /* align-self:flex-end; */
+    line-height: 70px;
+    margin-left: 30px;
+    margin-top: 12px;
+  }  
+
+  .personal-area .head-line img {
+    width: 30px;
+    margin: 0 20px 0 50px;
+  }
+
+  .personal-area .head-line label span {
+    margin-left: 10px;
+    border: solid 2px #fff;
+    cursor: pointer;
+  }
+
+  .personal-area .head-line strong {
+    margin-right: 10px;
+  }
+
+  .personal-area span.selectable{
+    border: solid 2px transparent;
+    cursor: pointer;
+  }
+
+  .personal-area span.selectable.selected{
+    border: solid 2px #0095B5;
+  }
+
+  .personal-area .personal-date-block {
+    display: flex;
+  }
+
+  .personal-area .personal-date-block .date{
+    flex-grow: 10;
+  }
+  .personal-area .personal-date-block ul {
+    margin-left: 20px;
+  }
+  .personal-area .personal-date-block li{
+    list-style: none;
+    font-size: 28px;
+  }
+
+  .personal-area .filter-line {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .personal-area .filter-line ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  .personal-area .filter-line div {
+    margin-left: 10px;
+  }
+
+  .personal-area .filter-line div > ul{
+    margin-top: 10px;
+  }
+
+
+  .personal-area .cars-list {
+    margin: 0;
+    padding: 0;
+    
+  }
+
+.personal-area .cars-list li {
+  display: flex;
+}
+
+.personal-area .cars-list  div {
+  margin-left: 10px;
+}
+
+.personal-area .cars-list  div.long {
+  flex-grow: 10;
+  /* background-color: #0095B5; */
+}
+
+.personal-area .cars-list  h4 {
+margin: 0;
+}
+  
+  footer {
+    width: 1440px;
+    border-top: 1px solid #000;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 10px 0 20px 0;
+  }
+  
+  footer div {
+    flex-grow: 10;
+  }
+  
+  footer > a {
+    margin-left: 20px;
+  }
+  
+  .grow {
+    text-align: right;
+    flex-grow: 10;
+  }
