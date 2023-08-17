@@ -1,90 +1,171 @@
 <script setup>
-import { ref, reactive, computed } from "vue";
+import { ref, reactive, computed, onMounted } from "vue";
+import MultySelectionFilter from "../components/MultySelectionFilter.vue";
 
-const url = { face: "assets/img/photo2.jpg", wallet: "assets/img/wallet.png" };
-const developersList = ["Chevrolet", "Mercedes-Benz"];
-const models = ["Tahoe", "G-Class", "Malibu"];
-const carsList = [
-  {
-    id: 1,
-    img: "assets/img/c1.jpg",
-    AKHD: "AFN1583",
-    developer: "Chevrolet",
-    model: "Tahoe",
-    year: 2015,
-    price: 41500,
-    VIN: "XUFSK**J2F3***200",
-    equipment: "LTZ",
-    enjene: "6.2P 408 AT6 4WD",
-    mileage: 2200,
-    ownersCount: 2,
-  },
-  {
-    id: 2,
-    img: "assets/img/c1.jpg",
-    AKHD: "AFN2345",
-    developer: "Chevrolet",
-    model: "Tahoe",
-    year: 2019,
-    price: 49500,
-    VIN: "DUFUK**D2D3***300",
-    equipment: "LTZ",
-    enjene: "6.2P 408 AT6 4WD",
-    mileage: 1200,
-    ownersCount: 0,
-  },
-  {
-    id: 3,
-    img: "assets/img/c1.jpg",
-    AKHD: "FFN2295",
-    developer: "Chevrolet",
-    model: "Tahoe",
-    year: 2019,
-    price: 49500,
-    VIN: "DUFUK**D2D3***300",
-    equipment: "LTZ",
-    enjene: "6.2P 408 AT6 4WD",
-    mileage: 1200,
-    ownersCount: 0,
-  },
-];
+import MSF from "../components/MultySelectionFilterV2.vue";
+
+const url = {
+  face: "assets/img/person-photo1.jpg",
+  wallet: "assets/img/wallet.png",
+};
+
+const carsListAsync = ref([]);
+
+const optionsListAsync = ref([]);
+
+const optionsListAsyncIndex = ref({});
+
+const developersListAsync = ref([]);
+
+const modelsListAsync = ref([]);
+
+onMounted(async () => {
+  console.log(`the component is now mounted.`);
+  const res = await fetch("assets/cars_list.json");
+  carsListAsync.value = await res.json();
+  developersListAsync.value = genDevelopersList(carsListAsync.value);
+  modelsListAsync.value = genModelsList(carsListAsync.value);
+  const res1 = await fetch("assets/option_list.json");
+  optionsListAsync.value = await res1.json();
+  optionsListAsyncIndex.value = indexer(optionsListAsync.value);
+});
+
 const currenciesList = [
-  { name: "UDS", rate: 1 },
+  { name: "USD", rate: 1 },
   { name: "UZS", rate: 12107.26 },
 ];
+
 let currentCurrency = ref(currenciesList[0]);
+
+function getSection(arr, start, end) {
+  const ret = arr.filter((element, index) => index >= start && index <= end);
+  return ret;
+}
+
+function indexer(arr) {
+  const ret = {};
+
+  arr.forEach((element) => {
+    ret[element.id] = element;
+  });
+  return ret;
+}
+
+function genDevelopersList(arr) {
+  console.log("genDevelopersList arr.length:", arr.length);
+  return [...new Set(arr.map((item) => item.developer))]
+    .sort()
+    .map((item, index) => {
+      return { id: index, name: item, selected: false };
+    });
+}
+
+function genModelsList(arr) {
+  return [...new Set(arr.map((item) => item.model))]
+    .sort()
+    .map((item, index) => {
+      return { id: index, name: item, selected: false };
+    });
+}
+
 const filter = ref({
   isNew: true,
   isSecondHands: true,
   AKHD: null,
-  priceMin: 0,
-  priceMax: 1000000,
+  priceMin: null,
+  priceMax: null,
+
+  equipment: [
+    { name: "Литые диски", selected: false },
+    { name: "Диаметр диска 20'", selected: false },
+    { name: "Руль c отделкой кожей", selected: false },
+    { name: "Розетка 220V", selected: false },
+    { name: "Фронтальная подушка безопасности водителя", selected: false },
+  ],
 });
+
 const summ = 100500;
 
+function fOldNew(arr, isOld, isNew) {
+  return arr.filter(
+    (el) => (isOld && el.ownersCount > 0) || (isNew && el.ownersCount < 1)
+  );
+}
+
+function fMinPrice(arr, minVal) {
+  return arr.filter(
+    (el) => !minVal || el.price * currentCurrency.value.rate > minVal
+  );
+}
+
+function fMaxPrice(arr, maxVal) {
+  return arr.filter(
+    (el) => !maxVal || el.price * currentCurrency.value.rate < maxVal
+  );
+}
+
+function fAKHD(arr, AKHD) {
+  return arr.filter((el) => !AKHD || el.AKHD.indexOf(AKHD) > -1);
+}
+
+function fDeveloper(arr, developers) {
+  const selected = developers.filter((d) => d.selected);
+  return arr.filter(
+    (el) =>
+      selected < 1 || selected.filter((d) => d.name == el.developer).length > 0
+  );
+}
+
+function fModel(arr, models) {
+  const selected = models.filter((d) => d.selected);
+  return arr.filter(
+    (el) =>
+      selected < 1 || selected.filter((d) => d.name == el.model).length > 0
+  );
+}
+
 const filtered = computed(() => {
-  const ret = [];
-  carsList.forEach((element) => {
-    if (
-      ((element.ownersCount == 0 && filter.value.isNew) ||
-        (element.ownersCount > 0 && filter.value.isSecondHands)) &&
-      element.price * currentCurrency.value.rate > filter.value.priceMin && 
-      element.price * currentCurrency.value.rate < filter.value.priceMax &&
-      (!filter.value.AKHD || element.AKHD.indexOf(filter.value.AKHD) > -1)
-    ) {
-      ret.push(element);
-    }
-  });
+  const ret = fModel(
+    fDeveloper(
+      fAKHD(
+        fMaxPrice(
+          fMinPrice(
+            fOldNew(
+              carsListAsync.value,
+              filter.value.isSecondHands,
+              filter.value.isNew
+            ),
+            filter.value.priceMin
+          ),
+          filter.value.priceMax
+        ),
+        filter.value.AKHD
+      ),
+      developersListAsync.value
+    ),
+    modelsListAsync.value
+  );
   return ret;
 });
 
+const filteredActiv = computed(() => {
+  return filtered.value.filter((item) => !item.isArchiv);
+});
+
+const filteredArchiv = computed(() => {
+  return filtered.value.filter((item) => item.isArchiv);
+});
+
 function onClick(currency) {
-  let oldMaxValue = filter.value.priceMax / currentCurrency.value.rate
-  let oldMinValue = filter.value.priceMin / currentCurrency.value.rate
+  if (filter.value.priceMax > 0) {
+    let oldMaxValue = filter.value.priceMax / currentCurrency.value.rate;
+    filter.value.priceMax = oldMaxValue * currency.rate;
+  }
+  if (filter.value.priceMin > 0) {
+    let oldMinValue = filter.value.priceMin / currentCurrency.value.rate;
+    filter.value.priceMin = oldMinValue * currency.rate;
+  }
   currentCurrency.value = currency;
-  filter.value.priceMax = oldMaxValue * currentCurrency.value.rate
-  filter.value.priceMin = oldMinValue * currentCurrency.value.rate
-  console.log(currency);
 }
 
 function onClickIsNew() {
@@ -98,8 +179,9 @@ function onClickIsSecondHands() {
 <template>
   <section class="personal-area">
     <div class="head-line">
-      <h3>Мои данные</h3>
-      <a href="#">Изменить</a>
+      <h3>МОИ ДАННЫЕ</h3>
+
+      <div><button>Изменить</button></div>
       <label>
         Валюта:<span
           v-for="item in currenciesList"
@@ -114,8 +196,9 @@ function onClickIsSecondHands() {
       <strong>{{ summ * currentCurrency.rate }}</strong>
       {{ currentCurrency.name }}
     </div>
+
     <div class="personal-date-block">
-      <img :src="url.face" width="300" />
+      <img :src="url.face" />
       <ul class="date">
         <li>Контактный телефон: +998 123 12 12</li>
         <li>Электронная почта: ravshan100500@gmail.com</li>
@@ -124,79 +207,93 @@ function onClickIsSecondHands() {
         <li>Город: Ташкент</li>
       </ul>
       <ul class="links">
-        <li><a href="#" class="font-black">Избранное</a></li>
-        <li><a href="#" class="font-black">Сравнения</a></li>
-        <li><a href="#" class="font-black">Сообщения</a></li>
-        <li><a href="#" class="font-black">Поиски</a></li>
+        <li><button>Избранное</button></li>
+        <li><button>Сравнения</button></li>
+        <li><button>Сообщения</button></li>
+        <li><button>Поиски</button></li>
       </ul>
     </div>
-    <h3>Мои объявления</h3>
+    <h3>МОИ ОБЪЯВЛЕНИЯ</h3>
     <h4>Фильтры</h4>
-    <div class="filter-line">
-      <span
-        class="selectable"
-        :class="{ selected: filter.isNew }"
-        @click="onClickIsNew"
-        >Новые</span
-      >
-      &nbsp;
-      <span
-        class="selectable"
-        :class="{ selected: filter.isSecondHands }"
-        @click="onClickIsSecondHands"
-        >Бу</span
-      >
 
+    <div class="filter-line">
       <div>
-        Марка
-        <ul>
-          <li>Chevrolet</li>
-          <li>Mercedes-Benz</li>
-        </ul>
+        <span
+          class="selectable"
+          :class="{ selected: filter.isNew }"
+          @click="onClickIsNew"
+          >Новые</span
+        >&nbsp;<span
+          class="selectable"
+          :class="{ selected: filter.isSecondHands }"
+          @click="onClickIsSecondHands"
+          >Бу</span
+        >
+      </div>
+      <MSF label="Марка" :list="developersListAsync" />
+      <MSF label="Модель" :list="modelsListAsync" />
+      <div>
+        AKHD
+        <input placeholder="AKHD" v-model="filter.AKHD" />
       </div>
       <div>
-        Модель
-        <ul>
-          <li>Tahoe</li>
-          <li>G-Class</li>
-          <li>Malibu</li>
-        </ul>
+        Цена от
+        <input placeholder="Цена от" v-model="filter.priceMin" />
       </div>
-      <input placeholder="AKHD" v-model="filter.AKHD" />
-      <input placeholder="Цена от" v-model="filter.priceMin" />
-      <input placeholder="Цена до" v-model="filter.priceMax" />
       <div>
-        Оборудование
-        <ul>
-          <li>Литые диски</li>
-          <li>Диаметр диска 20"</li>
-          <li>Руль c отделкой кожей</li>
-          <li>Розетка 220V</li>
-          <li>Фронтальная подушка безопасности водителя</li>
-        </ul>
+        Цена до
+        <input placeholder="Цена до" v-model="filter.priceMax" />
       </div>
+      <MultySelectionFilter label="Оборудование" :list="filter.equipment" />
     </div>
     <h4>Активные</h4>
     <ul class="cars-list">
-      <li v-for="item in filtered" :key="item.id">
-        <img :src="item.img" width="400" />
+      <li v-for="item in filteredActiv" :key="item.id">
+        <div class="car-img" :style="'background-image: url(' + item.img + ')'">
+          &nbsp;
+        </div>
+
         <div class="long">
-          <h4>
+          <h5>
             {{ item.developer }} {{ item.model }} {{ item.year }} за
             {{ item.price * currentCurrency.rate }} {{ currentCurrency.name }}
-          </h4>
-          <h4>AKHD: {{ item.AKHD }}</h4>
-          <ul>
-            <li>VIN: {{ item.VIN }}</li>
-            <li>Комплектация: {{ item.equipment }}</li>
-            <li>Двигатель: {{ item.enjene }}</li>
-            <li>Пробег: {{ item.mileage }} км</li>
-            <li>Число хозяев: {{ item.ownersCount }}</li>
-          </ul>
+          </h5>
+          <div class="details-block">
+            <div>
+              <h5>AKHD: {{ item.AKHD }}</h5>
+              <ul>
+                <li>VIN: {{ item.VIN }}</li>
+                <li>Комплектация: {{ item.equipment }}</li>
+                <li>Двигатель: {{ item.enjene }}</li>
+                <li>Пробег: {{ item.mileage }} км</li>
+                <li>Число хозяев: {{ item.ownersCount }}</li>
+              </ul>
+            </div>
+            <div class="options-list-block" >
+              <ul class="first-option-list">
+                <li
+                  v-for="oItem in getSection(item.optionsList, 0, 5)"
+                  :key="oItem"
+                >
+                  <span v-if="optionsListAsyncIndex[oItem]">{{ optionsListAsyncIndex[oItem].name }}</span>
+                </li>
+              </ul>
+              <ul class="second-option-list">
+                <li
+                  v-for="oItem in getSection(item.optionsList, 6, 11)"
+                  :key="oItem"
+                >
+                <span v-if="optionsListAsyncIndex[oItem]">{{ optionsListAsyncIndex[oItem].name }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
+
+
         <div>
-          <a href="" class="font-black"><h4>Редактировать</h4></a>
-          <a href="" class="font-black"><h4>Снять с продажи</h4></a>
+          <button class="inverse-button">Редактировать</button>
+          <button>Снять с продажи</button>
           <ul>
             <li>В продаже с 28 июля 2023 г</li>
             <li>Просмотров всего: 100500</li>
@@ -209,5 +306,56 @@ function onClickIsSecondHands() {
     </ul>
     <!-- {{ filtered }} -->
     <h4 class="general_section__title">Архив</h4>
+    <ul class="cars-list">
+      <li v-for="item in filteredArchiv" :key="item.id">
+        <div
+          class="car-img"
+          :style="'background-image: url(' + item.img + ')'"
+        ></div>
+
+        <div class="long">
+          <h5>
+            {{ item.developer }} {{ item.model }} {{ item.year }} за
+            {{ item.price * currentCurrency.rate }} {{ currentCurrency.name }}
+          </h5>
+          <div class="details-block">
+            <div>
+              <h5>AKHD: {{ item.AKHD }}</h5>
+              <ul>
+                <li>VIN: {{ item.VIN }}</li>
+                <li>Комплектация: {{ item.equipment }}</li>
+                <li>Двигатель: {{ item.enjene }}</li>
+                <li>Пробег: {{ item.mileage }} км</li>
+                <li>Число хозяев: {{ item.ownersCount }}</li>
+              </ul>
+            </div>
+            <div class="options-list-block">
+              <ul class="first-option-list">
+                <li
+                  v-for="oItem in getSection(item.optionsList, 0, 5)"
+                  :key="oItem"
+                >
+                <span v-if="optionsListAsyncIndex[oItem]">{{ optionsListAsyncIndex[oItem].name }}</span>
+                </li>
+              </ul>
+              <ul class="second-option-list">
+                <li
+                  v-for="oItem in getSection(item.optionsList, 6, 11)"
+                  :key="oItem"
+                >
+                <span v-if="optionsListAsyncIndex[oItem]">{{ optionsListAsyncIndex[oItem].name }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button class="inverse-button">Активировать</button>
+        </div>
+      </li>
+    </ul>
   </section>
 </template>
+<style scoped>
+</style>

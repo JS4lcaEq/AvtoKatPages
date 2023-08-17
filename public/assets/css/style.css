@@ -33,8 +33,26 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    font-family: MartianMono_Condensed-Light, Arial, Helvetica, sans-serif;
+    font-family: MartianMono_Condensed-Regular, Arial, Helvetica, sans-serif;
   
+  }
+
+  nav span{
+    cursor: pointer;
+      }
+
+  #maket {
+    position: absolute;
+    z-index: -100;
+    background-image: url(../img/AvtoCat-1_p1.jpg);
+    background-color: #0095B5;
+    background-position: center top;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 500%;
+    top: 0;
+    left: 0;
+    opacity: 0.2;
   }
 
   a {
@@ -43,10 +61,27 @@
   header {
     display: flex;
     align-items: center;
-    width: 1440px;
-    margin: auto;
-    padding: 40px 0 40px 0;
-    border-bottom: 1px solid #000;
+    width: auto;
+    margin: 0 8%;
+    padding: 14px 0 25px 0;
+    /* border-bottom: 1px solid #000; */
+  }
+
+  header h1, #logo {
+    display: inline-block;
+  }
+
+  #logo {
+    margin-left: 20px;
+  }
+
+  header > a {
+    display: flex;
+    align-items: center;
+    font-family: MartianMono_Condensed-Regular;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
   }
   
   header select {
@@ -63,22 +98,32 @@
   
   main {
     padding: 20px 0;
-    width: 1440px;
-    margin: auto;
+    width: auto;
+    margin: 0 8%;
   }
 
   .personal-area .head-line {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
   }
 
   h3 {
-    font-size: 40px;
-    font-weight: normal;
+    font-size: 32px;
+    /* font-weight: normal; */
   }
 
   h4 {
-    font-size: 28px;
+    font-size: 26px;
+    margin-top: 0;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  h5 {
+    font-size: 20px;
+    margin: 0 0 18px 0;
+    /* font-weight: normal; */
   }
 
   li {
@@ -89,12 +134,28 @@
     padding: 0;
   }
 
-  .personal-area .head-line a{
+  button {
+    border:#0095B5 solid 2px;
+    background-color: transparent;
+    /* height: 28px; */
+    line-height: 34px;
+    font-size: 26px;
+    width: 180px;
+  }
+
+  button.inverse-button {
+
+    background-color: #0095B5 ;
+    color:#fff;
+
+  }  
+
+  .personal-area .head-line > div{
     flex-grow: 10;
     /* align-self:flex-end; */
     line-height: 70px;
-    margin-left: 30px;
-    margin-top: 12px;
+    margin-left: 90px;
+    margin-top: 5px;
   }  
 
   .personal-area .head-line img {
@@ -123,22 +184,28 @@
 
   .personal-area .personal-date-block {
     display: flex;
+    align-items: flex-start;
+    padding-bottom: 80px;
   }
 
   .personal-area .personal-date-block .date{
     flex-grow: 10;
   }
   .personal-area .personal-date-block ul {
-    margin-left: 20px;
+    margin: 0 0 0 90px;
   }
   .personal-area .personal-date-block li{
     list-style: none;
-    font-size: 28px;
+    font-size: 18px;
+    padding: 0 0 16px 0;
   }
 
   .personal-area .filter-line {
     display: flex;
+    justify-content:space-between;
     align-items: baseline;
+    height: 223px;
+    padding: 6px 0 0 0;
   }
 
   .personal-area .filter-line ul {
@@ -153,7 +220,10 @@
   .personal-area .filter-line div > ul{
     margin-top: 10px;
   }
-
+  .personal-area .filter-line input {
+    display: block;
+    margin-top: 10px;
+  }
 
   .personal-area .cars-list {
     margin: 0;
@@ -161,39 +231,137 @@
     
   }
 
-.personal-area .cars-list li {
+.personal-area .cars-list > li {
   display: flex;
+  padding-bottom: 54px;
 }
 
-.personal-area .cars-list  div {
-  margin-left: 10px;
+.personal-area .cars-list .car-img {
+  width: 333px;
+  height: 222px;
+  background-color: #0095B5;
+  background-position: center;
+  background-size:cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  margin: 0 40px 0 0;
+  flex-shrink: 0;
+}
+
+
+.personal-area .cars-list  div button {
+  width: 298px;
+  display: block;
+  margin: 0 0 5px 0;
 }
 
 .personal-area .cars-list  div.long {
   flex-grow: 10;
+
+  /* background-color: #0095B5; */
+}
+
+.personal-area .cars-list  div.long li{
+  padding: 0 0 9px 0;
   /* background-color: #0095B5; */
 }
 
 .personal-area .cars-list  h4 {
 margin: 0;
 }
+
+.personal-area .cars-list .details-block {
+  display: flex;
+}
+
+.personal-area .cars-list .options-list-block li {
+  list-style: disc;
+  list-style-position: inside;
+  overflow: hidden;
+}
+
+.personal-area .cars-list .options-list-block{
+  display: flex;
+  margin-left: 30px;
+}
+
+.personal-area .cars-list .options-list-block ul {
+  padding-right: 10px;
+}
   
   footer {
-    width: 1440px;
+    width: auto;
     border-top: 1px solid #000;
-    margin: auto;
+    margin: 0 8%;
     display: flex;
     align-items: center;
     padding: 10px 0 20px 0;
   }
   
-  footer div {
+  footer > div:first-child {
     flex-grow: 10;
   }
   
-  footer > a {
+  footer  img {
     margin-left: 20px;
+    
   }
+
+
+
+#measurer {
+  position: fixed;
+  width: auto;
+  height: auto;
+  left: 50%;
+  top: 50%;
+  background-color: aquamarine;
+  opacity: 0.3;
+}
+
+#measurer div {
+  display: none;
+  margin: auto;
+  width: 200px;
+}
+
+@media screen and (min-width: 1200px) {
+  #app #measurer .w-1{
+    display: block;
+    background-color: #0095B5;
+  }
+}
+.first-option-list{
+  display: none;
+}
+@media screen and (min-width: 1500px) {
+  #app #measurer .w-2{
+    display: block;
+    background-color: #0095B5;
+  }
+  .first-option-list {
+    display: block;
+    width: auto;
+  }
+}
+
+
+.second-option-list{
+  display: none;
+}
+@media screen and (min-width: 1800px) {
+  #app #measurer .w-3{
+    display: block;
+    background-color: #0095B5;
+  }
+  .second-option-list {
+    display: block;
+    width: 280px;
+  }
+  .first-option-list {
+    width: 280px;
+  }  
+}
   
   .grow {
     text-align: right;
