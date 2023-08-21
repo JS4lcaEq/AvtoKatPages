@@ -1,239 +1,343 @@
 @font-face {
-    font-family: MartianMono-Regular;
-    src: url(../fonts/MartianMono-Regular.ttf);
-  }
-  .mr { font-family: MartianMono-Regular; }
-  
-  @font-face {
-    font-family: MartianMono-Bold;
-    src: url(../fonts/MartianMono-Bold.ttf);
-  }
-  .mb { font-family: MartianMono-Bold; }
-  
-  @font-face {
-    font-family: MartianMono_Condensed-Regular;
-    src: url(../fonts/MartianMono_Condensed-Regular.ttf);
-  }
-  .mcr { font-family: MartianMono_Condensed-Regular; }
-  
-  @font-face {
-    font-family: MartianMono_Condensed-Light;
-    src: url(../fonts/MartianMono_Condensed-Light.ttf);
-  }
-  .mcl { font-family: MartianMono_Condensed-Light; }
-  
-  @font-face {
-    font-family: MartianMono_Condensed-Bold;
-    src: url(../fonts/MartianMono_Condensed-Bold.ttf);
-  }
-  .mcb { font-family: MartianMono_Condensed-Bold}
-  
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    font-family: MartianMono_Condensed-Regular, Arial, Helvetica, sans-serif;
-  
-  }
+  font-family: MartianMono-Regular;
+  src: url(../fonts/MartianMono-Regular.ttf);
+}
 
-  nav span{
-    cursor: pointer;
-      }
+.mr {
+  font-family: MartianMono-Regular;
+}
 
-  #maket {
-    position: absolute;
-    z-index: -100;
-    background-image: url(../img/AvtoCat-1_p1.jpg);
-    background-color: #0095B5;
-    background-position: center top;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 500%;
-    top: 0;
-    left: 0;
-    opacity: 0.2;
-  }
+@font-face {
+  font-family: MartianMono-Bold;
+  src: url(../fonts/MartianMono-Bold.ttf);
+}
 
-  a {
-    color: #000;
-  }
-  header {
-    display: flex;
-    align-items: center;
-    width: auto;
-    margin: 0 8%;
-    padding: 14px 0 25px 0;
-    /* border-bottom: 1px solid #000; */
-  }
+.mb {
+  font-family: MartianMono-Bold;
+}
 
-  header h1, #logo {
-    display: inline-block;
-  }
+@font-face {
+  font-family: MartianMono_Condensed-Regular;
+  src: url(../fonts/MartianMono_Condensed-Regular.ttf);
+}
 
-  #logo {
-    margin-left: 20px;
-  }
+.mcr {
+  font-family: MartianMono_Condensed-Regular;
+}
 
-  header > a {
-    display: flex;
-    align-items: center;
-    font-family: MartianMono_Condensed-Regular;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
-  header select {
-    border: none;
-    background-color: transparent;
-    font-family: MartianMono_Condensed-Light;
-    font-size: 16px;
-    margin-right: 20px;
-  }
-  
-  header select option {
-    font-family: MartianMono_Condensed-Light;;
-  }
-  
-  main {
-    padding: 20px 0;
-    width: auto;
-    margin: 0 8%;
-  }
+@font-face {
+  font-family: MartianMono_Condensed-Light;
+  src: url(../fonts/MartianMono_Condensed-Light.ttf);
+}
 
-  .personal-area .head-line {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
+.mcl {
+  font-family: MartianMono_Condensed-Light;
+}
 
-  h3 {
-    font-size: 32px;
-    /* font-weight: normal; */
-  }
+@font-face {
+  font-family: MartianMono_Condensed-Bold;
+  src: url(../fonts/MartianMono_Condensed-Bold.ttf);
+}
 
-  h4 {
-    font-size: 26px;
-    margin-top: 0;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-  }
+.mcb {
+  font-family: MartianMono_Condensed-Bold
+}
 
-  h5 {
-    font-size: 20px;
-    margin: 0 0 18px 0;
-    /* font-weight: normal; */
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: MartianMono_Condensed-Regular, Arial, Helvetica, sans-serif;
+  --max-width: 1602px;
+}
 
-  li {
-    list-style: none;
-  }
+nav {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 5px;
+  opacity: 0.3;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
 
-  ul {
-    padding: 0;
-  }
+nav span {
+  cursor: pointer;
+  text-decoration: underline;
+}
 
-  button {
-    border:#0095B5 solid 2px;
-    background-color: transparent;
-    /* height: 28px; */
-    line-height: 34px;
-    font-size: 26px;
-    width: 180px;
-  }
+#maket {
+  position: absolute;
+  z-index: -100;
+  background-color: #0095B5;
+  background-position: center top;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 600%;
+  top: 0;
+  left: 0;
+  opacity: 0.2;
+}
 
-  button.inverse-button {
+a {
+  color: #000;
+}
 
-    background-color: #0095B5 ;
-    color:#fff;
+h3 {
+  font-size: 32px;
+}
 
-  }  
+h4 {
+  font-size: 26px;
+  margin-top: 0;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
 
-  .personal-area .head-line > div{
-    flex-grow: 10;
-    /* align-self:flex-end; */
-    line-height: 70px;
-    margin-left: 90px;
-    margin-top: 5px;
-  }  
+h5 {
+  font-size: 20px;
+  margin: 0 0 18px 0;
+}
 
-  .personal-area .head-line img {
-    width: 30px;
-    margin: 0 20px 0 50px;
-  }
+h6 {
+  font-size: 14px;
+  margin: 0 0 5px 0;
+}
 
-  .personal-area .head-line label span {
-    margin-left: 10px;
-    border: solid 2px #fff;
-    cursor: pointer;
-  }
+li {
+  list-style: none;
+}
 
-  .personal-area .head-line strong {
-    margin-right: 10px;
-  }
+ul {
+  padding: 0;
+}
 
-  .personal-area span.selectable{
-    border: solid 2px transparent;
-    cursor: pointer;
-  }
-
-  .personal-area span.selectable.selected{
-    border: solid 2px #0095B5;
-  }
-
-  .personal-area .personal-date-block {
-    display: flex;
-    align-items: flex-start;
-    padding-bottom: 80px;
-  }
-
-  .personal-area .personal-date-block .date{
-    flex-grow: 10;
-  }
-  .personal-area .personal-date-block ul {
-    margin: 0 0 0 90px;
-  }
-  .personal-area .personal-date-block li{
-    list-style: none;
-    font-size: 18px;
-    padding: 0 0 16px 0;
-  }
-
-  .personal-area .filter-line {
-    display: flex;
-    justify-content:space-between;
-    align-items: baseline;
-    height: 223px;
-    padding: 6px 0 0 0;
-  }
-
-  .personal-area .filter-line ul {
-    padding: 0;
-    margin: 0;
-  }
-
-  .personal-area .filter-line div {
-    margin-left: 10px;
-  }
-
-  .personal-area .filter-line div > ul{
-    margin-top: 10px;
-  }
-  .personal-area .filter-line input {
-    display: block;
-    margin-top: 10px;
-  }
-
-  .personal-area .cars-list {
-    margin: 0;
-    padding: 0;
-    
-  }
-
-.personal-area .cars-list > li {
+header {
   display: flex;
-  padding-bottom: 54px;
+  align-items: center;
+  width: 84%;
+  max-width: var(--max-width);
+  margin: auto;
+  padding: 14px 0 25px 0;
+}
+
+header h1,
+#logo {
+  display: inline-block;
+}
+
+#logo {
+  margin-left: 20px;
+}
+
+header>a {
+  display: flex;
+  align-items: center;
+  font-family: MartianMono_Condensed-Regular;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+header select {
+  border: none;
+  background-color: transparent;
+  font-family: MartianMono_Condensed-Light;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+header select option {
+  font-family: MartianMono_Condensed-Light;
+  ;
+}
+
+main {
+  padding: 20px 0 33px 0;
+  width: 84%;
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+.personal-area .head-line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.personal-area .head-line .wallet-block {
+  display: flex;
+  align-items: center;
+  margin-top: -165px;
+  flex-grow: 1;
+  padding-right: 110px;
+  font-size: 18px;
+}
+
+button {
+  border: #0095B5 solid 2px;
+  background-color: transparent;
+  line-height: 34px;
+  font-size: 24px;
+  width: 180px;
+  font-family: MartianMono_Condensed-Light;
+}
+
+button.inverse-button {
+
+  background-color: #0095B5;
+  color: #fff;
+
+}
+
+button.next-list-button {
+  display: block;
+  margin: auto;
+  margin-bottom: 120px;
+}
+
+.personal-area .head-line>div {
+  flex-grow: 10;
+  line-height: 70px;
+  margin-left: 90px;
+  margin-top: 5px;
+}
+
+.personal-area .head-line img {
+  width: 30px;
+  margin: 0 20px 0 50px;
+}
+
+.personal-area .head-line label span {
+  margin-left: 10px;
+  border: solid 2px #fff;
+  cursor: pointer;
+}
+
+.personal-area .head-line strong {
+  margin-right: 10px;
+}
+
+.personal-area span.selectable {
+  border: solid 2px transparent;
+  cursor: pointer;
+  padding: 3px 8px;
+}
+
+.personal-area span.selectable.selected {
+  border: solid 2px #0095B5;
+  background-color: #0095B5;
+  color: #fff;
+}
+
+.personal-area .personal-date-block {
+  display: flex;
+  align-items: center;
+  padding-bottom: 80px;
+}
+
+.personal-area .personal-date-block .date {
+  flex-grow: 10;
+}
+
+.personal-area .personal-date-block .date li {
+  display: flex;
+  justify-content: space-between;
+  width: 520px;
+  padding: 0;
+  margin-bottom: 20px;
+  background-image: url(../img/dotted.png);
+  background-position: bottom;
+  background-repeat: repeat-x;
+}
+
+.personal-area .personal-date-block .date span {
+  background-color: #fff;
+
+  display: block;
+  margin-bottom: 0;
+}
+
+.personal-area .personal-date-block ul {
+  margin: 0 0 0 90px;
+}
+
+.personal-area .personal-date-block li {
+  list-style: none;
+  font-size: 18px;
+  padding: 0 0 16px 0;
+}
+
+.personal-area .filter-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0 12px 0;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin-bottom: 186px;
+  margin-top: 20px;
+}
+
+.personal-area .filter-line ul {
+  padding: 0;
+  margin: 0;
+}
+
+.personal-area .filter-line ul.filter-base-list {
+  position: absolute;
+  margin-top: 30px;
+  z-index: 1;
+}
+
+.personal-area .filter-line .last-item ul.filter-base-list {
+  margin-left: -100px;
+  width: 250px;
+}
+
+.personal-area .filter-line div {
+  margin-left: 10px;
+}
+
+.personal-area .filter-line div>ul {
+  margin-top: 10px;
+}
+
+.personal-area .filter-line input {
+  margin-top: 10px;
+}
+
+.personal-area .cars-list {
+  margin: 0 0 40px 0;
+  padding: 0;
+}
+
+.personal-area .car-list-header-line {
+  display: flex;
+  justify-content: space-between;
+}
+
+.personal-area .car-list-header-line select {
+  border: none;
+  background-color: #fff;
+  font-size: 16px;
+  font-family: MartianMono-Regular;
+}
+
+.personal-area .car-list-header-line select option {
+  font-size: 16px;
+  font-family: MartianMono-Regular;
+}
+
+.personal-area .cars-list>li {
+  display: flex;
+  padding: 23px 0 24px 0;
+  border-bottom: solid 1px #000;
+}
+
+.personal-area .cars-list>li.last-item {
+  border-bottom: none;
 }
 
 .personal-area .cars-list .car-img {
@@ -241,7 +345,7 @@
   height: 222px;
   background-color: #0095B5;
   background-position: center;
-  background-size:cover;
+  background-size: cover;
   background-repeat: no-repeat;
   overflow: hidden;
   margin: 0 40px 0 0;
@@ -249,63 +353,94 @@
 }
 
 
-.personal-area .cars-list  div button {
+.personal-area .cars-list div button {
   width: 298px;
   display: block;
   margin: 0 0 5px 0;
 }
 
-.personal-area .cars-list  div.long {
+.personal-area .cars-list div.long {
   flex-grow: 10;
-
-  /* background-color: #0095B5; */
 }
 
-.personal-area .cars-list  div.long li{
+.personal-area .cars-list div.long li {
   padding: 0 0 9px 0;
-  /* background-color: #0095B5; */
 }
 
-.personal-area .cars-list  h4 {
-margin: 0;
+.personal-area .cars-list h4 {
+  margin: 0;
 }
 
 .personal-area .cars-list .details-block {
   display: flex;
+  justify-content: space-between;
+}
+
+.personal-area .cars-list .details-block .params-list li {
+  background-image: url(../img/dotted.png);
+  background-position: bottom;
+  background-repeat: repeat-x;
+  display: flex;
+  justify-content: space-between;
+  width: 333px;
+  padding: 0;
+  margin-bottom: 9px;
+}
+
+.personal-area .cars-list .details-block .params-list li span {
+  margin-bottom: 1px;
+  background-color: #fff;
 }
 
 .personal-area .cars-list .options-list-block li {
-  list-style: disc;
+  list-style: square;
   list-style-position: inside;
   overflow: hidden;
 }
 
-.personal-area .cars-list .options-list-block{
+.personal-area .cars-list .options-list-block {
   display: flex;
   margin-left: 30px;
+  justify-content: flex-end;
 }
 
 .personal-area .cars-list .options-list-block ul {
   padding-right: 10px;
 }
-  
-  footer {
-    width: auto;
-    border-top: 1px solid #000;
-    margin: 0 8%;
-    display: flex;
-    align-items: center;
-    padding: 10px 0 20px 0;
-  }
-  
-  footer > div:first-child {
-    flex-grow: 10;
-  }
-  
-  footer  img {
-    margin-left: 20px;
-    
-  }
+
+.personal-area .cars-list .review-count-list li {
+  background-image: url(../img/dotted.png);
+  background-position: bottom;
+  background-repeat: repeat-x;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 11px;
+}
+
+.personal-area .cars-list .review-count-list span {
+  background-color: #fff;
+  margin-bottom: 1px;
+
+}
+
+footer {
+  width: 84%;
+  max-width: var(--max-width);
+  margin: auto;
+  border-top: 1px solid #000;
+  display: flex;
+  align-items: center;
+  padding: 35px 0 20px 0;
+}
+
+footer>div:first-child {
+  flex-grow: 10;
+}
+
+footer img {
+  margin-left: 20px;
+
+}
 
 
 
@@ -326,44 +461,51 @@ margin: 0;
 }
 
 @media screen and (min-width: 1200px) {
-  #app #measurer .w-1{
+  #app #measurer .w-1 {
     display: block;
     background-color: #0095B5;
   }
 }
-.first-option-list{
+
+.first-option-list {
   display: none;
 }
+
 @media screen and (min-width: 1500px) {
-  #app #measurer .w-2{
+  #app #measurer .w-2 {
     display: block;
     background-color: #0095B5;
   }
+
   .first-option-list {
     display: block;
-    width: auto;
+    width: 280px;
   }
 }
 
 
-.second-option-list{
+.second-option-list {
   display: none;
 }
+
 @media screen and (min-width: 1800px) {
-  #app #measurer .w-3{
+  #app #measurer .w-3 {
     display: block;
     background-color: #0095B5;
   }
+
   .second-option-list {
     display: block;
-    width: 280px;
+    width: 265px;
   }
+
   .first-option-list {
     width: 280px;
-  }  
-}
-  
-  .grow {
-    text-align: right;
-    flex-grow: 10;
   }
+}
+
+.grow {
+  text-align: right;
+  flex-grow: 10;
+}
+

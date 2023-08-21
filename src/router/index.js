@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PersonalArea from '../views/PersonalArea.vue'
+import DealerArea from '../views/DealerArea.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -10,6 +11,11 @@ const router = createRouter({
       name: 'personalArea',
       component: PersonalArea
     },
+    {
+      path: '/dealer',
+      name: 'dealerArea',
+      component: DealerArea
+    },    
     {
       path: '/about',
       name: 'about',

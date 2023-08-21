@@ -51,7 +51,7 @@ function open() {
     <span @click="open" class="label"> {{ label }} </span>
     <span @click="open" class="arrow">&or;</span>
 
-    <ul>
+    <ul  class="filter-base-list">
       <li v-for="item in dstn" :key="item.id" @click="move(item)">
         {{ item.name }}
       </li>
@@ -68,6 +68,7 @@ li {
 }
 .filter-add-list {
   position: absolute;
+  z-index: 10;
   border: 1px solid #000;
   background-color: rgba(255, 255, 255, 0.9);
   padding: 10px;

@@ -1,7 +1,13 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from "vue";
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRoute } from "vue-router";
 
+const maketUrl = computed(() => {
+  let ret = null
+  if(useRoute().name == "personalArea") ret = "url(./assets/img/AvtoCat-1_p1.jpg)"
+  if(useRoute().name == "dealerArea") ret = "url(./assets/img/AvtoCat-1_p2.png)"
+  return ret;
+})
 
 const url = {
   uz: "assets/img/AvtoKatUZ_logo_x200.png",
@@ -9,6 +15,7 @@ const url = {
   kz: "assets/img/AvtoKatKZ_logo_x200.png",
   face: "assets/img/photo2.jpg",
   logo: "assets/img/logo2.png",
+  maket: "url(../img/AvtoCat-1_p1.jpg)"
 };
 
 const isDesignMaketWisible = ref(false);
@@ -64,20 +71,23 @@ function onWidth(val){
       </p>
     </div>
     <div>
-      <a href="#"><img :src="url.ae" height="25" /></a>
-      <a href="#"><img :src="url.kz" height="25" /></a>
+      <a href="#"><img :src="url.ae" height="35" /></a>
+      <a href="#"><img :src="url.kz" height="35" /></a>
       <a href="#" style="display: block; text-align: right; margin-top: 5px"
-        ><img alt="logo" :src="url.uz" height="40"
+        ><img alt="logo" :src="url.uz" height="50"
       /></a>
     </div>
   </footer>
   <nav>
-    Navigation
-    <RouterLink to="/">this page</RouterLink> &nbsp;
-    <RouterLink to="/about">another page</RouterLink> &nbsp;
-    design: <a href="#" @click="onDesign">maket</a> <a href="#" @click="onWidth">width</a>
+    Navigation:
+    <RouterLink to="/">Personal Design Maket</RouterLink> &nbsp;
+    <RouterLink to="/dealer">Dealer Design Maket</RouterLink> &nbsp;
+    <RouterLink to="/about">debug page</RouterLink> ; &nbsp;
+
+    design: <span @click="onDesign">maket</span>, <span @click="onWidth">width</span> ;
+    maketUrl: {{ maketUrl }}
   </nav>
-  <div id="maket" v-if="isDesignMaketWisible"></div>
+  <div id="maket" v-if="isDesignMaketWisible" :style="{'background-image': maketUrl}"></div>
   <div id="measurer" v-if="isWidthVisible">
     <div class="w-1">width &gt;= 1200px</div>
     <div class="w-2">width &gt;= 1500px</div>
