@@ -1,0 +1,21 @@
+{
+    "reguests": {
+        "cars": {
+            "note": "список машин",
+            "url": "api/cars.json"
+        },
+        "carsOptions": {
+            "note": "справочник оборудования машин",
+            "url": "api/options.json"
+        },
+        "developerModelFilter": {
+            "note": "двухуровневый справочник производители и модели",
+            "url": "api/filter.json",
+            "sample": "[{\"name\":\"Chevrolet\", \"models\": [{\"name\": \"Tahoe\"}]}]"
+        },
+        "dealer": {
+            "note": "информация по дилеру",
+            "url": "api/dealer.json"
+        }
+    }
+}

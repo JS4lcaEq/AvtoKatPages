@@ -1,0 +1,119 @@
+{
+    "phone": "+998 123 12 12",
+    "email": "royal_toyota@gmail.com",
+    "nic": "RM_Toyota",
+    "name": "RM_Motors Toyota",
+    "city": "Ташкент",
+    "dealerId": 100500,
+    "face": "./assets/img/dealer-photo1.jpg",
+    "wallet": 100555,
+    "galleryList": [
+        {
+            "id": 1,
+            "url": "./assets/img/dealer-gallery-1.JPG",
+            "w": 560
+        },
+        {
+            "id": 5,
+            "url": "./assets/img/dealer-gallery-5.JPG",
+            "w": 190
+        },
+        {
+            "id": 2,
+            "url": "./assets/img/dealer-gallery-2.JPG",
+            "w": 560
+        },
+        {
+            "id": 7,
+            "url": "./assets/img/dealer-gallery-7.JPG",
+            "w": 185
+        },
+        {
+            "id": 3,
+            "url": "./assets/img/dealer-gallery-3.JPG",
+            "w": 560
+        },
+        {
+            "id": 6,
+            "url": "./assets/img/dealer-gallery-6.JPG",
+            "w": 185
+        },
+        {
+            "id": 8,
+            "url": "./assets/img/dealer-gallery-8.JPG",
+            "w": 320
+        },
+        {
+            "id": 4,
+            "url": "./assets/img/dealer-gallery-4.JPG",
+            "w": 200
+        },
+        {
+            "id": 9,
+            "url": "./assets/img/dealer-gallery-9.JPG",
+            "w": 320
+        }
+    ],
+    "awardsList": [
+        "Royal Motors Tashkent City — официальный дилер Toyota в Узбекистане!",
+        "Двукратный победитель премии «Автодилер года».",
+        "2-е место в рейтинге продавцов поддержанных автомобилей по версии Forbes."
+    ],
+    "awardsList2": [
+        "21 год на рынке",
+        "26 городов присутствия",
+        "более 5 000 автомобилей на сайте",
+        "5 000 сотрудников в компании."
+    ],
+    "regionDealersList": [
+        {
+            "link": "#",
+            "text": "DealerID 123123. Royal Motors Lexus"
+        },
+        {
+            "link": "#",
+            "text": "DealerID 121212. Royal Motors Land Rover"
+        },
+        {
+            "link": "#",
+            "text": "DealerID 111111. Royal Motors BMW"
+        }
+    ],
+    "socialNetworks": [
+        {
+            "img": "assets/img/sovial-network-1.png",
+            "link": "#",
+            "text": "website.uz"
+        },
+        {
+            "img": "assets/img/sovial-network-2.png",
+            "link": "#",
+            "text": "Instagram"
+        },
+        {
+            "img": "assets/img/sovial-network-3.png",
+            "link": "#",
+            "text": "Telegram"
+        },
+        {
+            "img": "assets/img/sovial-network-4.png",
+            "link": "#",
+            "text": "Facebook"
+        },
+        {
+            "img": "assets/img/sovial-network-5.png",
+            "link": "#",
+            "text": "Yandex maps"
+        },
+        {
+            "img": "assets/img/sovial-network-6.png",
+            "link": "#",
+            "text": "Google maps"
+        },
+        {
+            "img": "assets/img/sovial-network-7.png",
+            "link": "#",
+            "text": "2Gis maps"
+        }
+    ]
+}

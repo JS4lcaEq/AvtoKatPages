@@ -27,16 +27,16 @@ function moveArr(arr, move) {
 }
 
 function getMargin(centerIndex) {
-  console.log("centerIndex", centerIndex);
+  //console.log("centerIndex", centerIndex);
   let margin = 0;
   arr.value.forEach((e, index) => {
     if (index < centerIndex) {
       margin += e.w;
-      console.log("add", margin);
+      //console.log("add", margin);
     }
     if (index == centerIndex) {
       margin += e.w / 2;
-      console.log("half", margin);
+      //console.log("half", margin);
     }
   });
   return margin;

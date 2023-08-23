@@ -2,10 +2,11 @@
 import { ref, reactive, computed, onMounted } from "vue";
 import { RouterLink, RouterView, useRoute } from "vue-router";
 
+
 const maketUrl = computed(() => {
   let ret = null
   if(useRoute().name == "personalArea") ret = "url(./assets/img/AvtoCat-1_p1.jpg)"
-  if(useRoute().name == "dealerArea") ret = "url(./assets/img/AvtoCat-1_p2.png)"
+  if(useRoute().name == "dealerArea") ret = "url(./assets/img/AvtoCat-1_p2.jpg)"
   return ret;
 })
 

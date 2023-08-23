@@ -1,13 +1,19 @@
 <script setup>
 import { ref, reactive, computed, onMounted } from "vue";
-import MultySelectionFilter from "../components/MultySelectionFilter.vue";
 
-import MSF from "../components/MultySelectionFilterV2.vue";
+import CarList from "../components/CarList.vue";
+import Filter from "../components/Filter.vue";
+
+import { useCars } from "@/stores/cars";
+const Cars = useCars();
+
+import { useCarsOptions } from "@/stores/carsOptions";
+const CarsOptions = useCarsOptions();
 
 const url = {
   face: "assets/img/person-photo1.jpg",
   wallet: "assets/img/wallet.png",
-  order: "assets/img/order-asc.png"
+  order: "assets/img/order-asc.png",
 };
 
 const carsListAsync = ref([]);
@@ -16,18 +22,11 @@ const optionsListAsync = ref([]);
 
 const optionsListAsyncIndex = ref({});
 
-const developersListAsync = ref([]);
-
-const modelsListAsync = ref([]);
-
 onMounted(async () => {
   console.log(`the component is now mounted.`);
-  const res = await fetch("assets/cars_list.json");
-  carsListAsync.value = await res.json();
-  developersListAsync.value = genDevelopersList(carsListAsync.value);
-  modelsListAsync.value = genModelsList(carsListAsync.value);
-  const res1 = await fetch("assets/option_list.json");
-  optionsListAsync.value = await res1.json();
+
+  carsListAsync.value = await Cars.load();
+  optionsListAsync.value = await CarsOptions.load();
   optionsListAsyncIndex.value = indexer(optionsListAsync.value);
 });
 
@@ -38,19 +37,6 @@ const currenciesList = [
 
 let currentCurrency = ref(currenciesList[0]);
 
-function crossingArr(arrA, arrB, propName) {
-  const ret = arrA.filter(
-    (a) => arrB.filter((b) => b[propName] == a[propName]).length > 0
-  );
-}
-
-function getSection(arr, start, end) {
-  const ret = arr.filter(
-    (element, index) => index >= start && index <= end && index < arr.length
-  );
-  return ret;
-}
-
 function indexer(arr) {
   const ret = {};
 
@@ -60,111 +46,25 @@ function indexer(arr) {
   return ret;
 }
 
-function genDevelopersList(arr) {
-  console.log("genDevelopersList arr.length:", arr.length);
-  return [...new Set(arr.map((item) => item.developer))]
-    .sort()
-    .map((item, index) => {
-      return { id: index, name: item, selected: false };
-    });
-}
-
-function genModelsList(arr) {
-  return [...new Set(arr.map((item) => item.model))]
-    .sort()
-    .map((item, index) => {
-      return { id: index, name: item, selected: false };
-    });
-}
-
-const filter = ref({
-  isNew: true,
-  isSecondHands: true,
-  AKHD: null,
-  priceMin: null,
-  priceMax: null,
-
-  equipment: [
-    { name: "Литые диски", selected: false },
-    { name: "Диаметр диска 20'", selected: false },
-    { name: "Руль c отделкой кожей", selected: false },
-    { name: "Розетка 220V", selected: false },
-    { name: "Фронтальная подушка безопасности водителя", selected: false },
-  ],
-});
+const filter = ref(null);
+const filterRaw = ref(null);
 
 const summ = 100500;
 
-function fOldNew(arr, isOld, isNew) {
-  return arr.filter(
-    (el) =>
-      !el.isHidden &&
-      ((isOld && el.ownersCount > 0) || (isNew && el.ownersCount < 1))
-  );
-}
-
-function fMinPrice(arr, minVal) {
-  return arr.filter(
-    (el) => !minVal || el.price * currentCurrency.value.rate > minVal
-  );
-}
-
-function fMaxPrice(arr, maxVal) {
-  return arr.filter(
-    (el) => !maxVal || el.price * currentCurrency.value.rate < maxVal
-  );
-}
-
-function fAKHD(arr, AKHD) {
-  return arr.filter((el) => !AKHD || el.AKHD.indexOf(AKHD) > -1);
-}
-
-function fDeveloper(arr, developers) {
-  const selected = developers.filter((d) => d.selected);
-  return arr.filter(
-    (el) =>
-      selected < 1 || selected.filter((d) => d.name == el.developer).length > 0
-  );
-}
-
-function fModel(arr, models) {
-  const selected = models.filter((d) => d.selected);
-  return arr.filter(
-    (el) =>
-      selected < 1 || selected.filter((d) => d.name == el.model).length > 0
-  );
-}
-
 const filtered = computed(() => {
-  const ret = fModel(
-    fDeveloper(
-      fAKHD(
-        fMaxPrice(
-          fMinPrice(
-            fOldNew(
-              carsListAsync.value,
-              filter.value.isSecondHands,
-              filter.value.isNew
-            ),
-            filter.value.priceMin
-          ),
-          filter.value.priceMax
-        ),
-        filter.value.AKHD
-      ),
-      developersListAsync.value
-    ),
-    modelsListAsync.value
-  );
-  return ret;
+  return carsListAsync.value;
 });
 
 const filteredActiv = computed(() => {
-  return filtered.value.filter((item) => !item.isArchiv);
+  if (filtered.value) {
+    return filtered.value.filter((item) => !item.isArchiv);
+  }
 });
 
 const filteredArchiv = computed(() => {
-  return filtered.value.filter((item) => item.isArchiv);
+  if (filtered.value) {
+    return filtered.value.filter((item) => item.isArchiv);
+  }
 });
 
 function onClick(currency) {
@@ -179,11 +79,16 @@ function onClick(currency) {
   currentCurrency.value = currency;
 }
 
-function onClickIsNew() {
-  filter.value.isNew = !filter.value.isNew;
-}
-function onClickIsSecondHands() {
-  filter.value.isSecondHands = !filter.value.isSecondHands;
+function onChangeFilter(val) {
+  console.log("onChangeFilter", val);
+
+
+  filterRaw.value = JSON.stringify(val)
+  filter.value = encodeURI( JSON.stringify(val));
+  
+  Cars.load(val).then((data) => {
+    carsListAsync.value = data;
+  });
 }
 </script>
 
@@ -230,37 +135,8 @@ function onClickIsSecondHands() {
     </div>
     <h3>МОИ ОБЪЯВЛЕНИЯ</h3>
     <h4>Фильтры</h4>
-
-    <div class="filter-line">
-      <div>
-        <span
-          class="selectable"
-          :class="{ selected: filter.isNew }"
-          @click="onClickIsNew"
-          >Новые</span
-        >&nbsp;<span
-          class="selectable"
-          :class="{ selected: filter.isSecondHands }"
-          @click="onClickIsSecondHands"
-          >Бу</span
-        >
-      </div>
-      <MSF label="Марка" :list="developersListAsync" />
-      <MSF label="Модель" :list="modelsListAsync" />
-      <div>
-        AKHD
-        <input placeholder="AKHD" v-model="filter.AKHD" />
-      </div>
-      <div>
-        Цена от
-        <input placeholder="Цена от" v-model="filter.priceMin" />
-      </div>
-      <div>
-        Цена до
-        <input placeholder="Цена до" v-model="filter.priceMax" />
-      </div>
-      <MSF label="Оборудование" :list="filter.equipment" class="last-item" />
-    </div>
+    <div class="debug"><p>{{ filter }}</p> <p>{{ filterRaw }}</p></div>
+    <Filter :filter="{}" @on-change="onChangeFilter" />
 
     <div class="car-list-header-line">
       <h4>Активные</h4>
@@ -276,155 +152,33 @@ function onClickIsSecondHands() {
     </div>
 
     <!-- cars list -->
-    <ul class="cars-list">
-      <li
-        v-for="(item, index) in filteredActiv"
-        :key="item.id"
-        :class="{ 'last-item': index == filteredActiv.length - 1 }"
-      >
-        <div class="car-img" :style="'background-image: url(' + item.img + ')'">
-          &nbsp;
-        </div>
-
-        <div class="long">
-          <h5>
-            {{ item.developer }} {{ item.model }} {{ item.year }} за
-            {{ item.price * currentCurrency.rate }} {{ currentCurrency.name }}
-          </h5>
-          <h5>AKHD: {{ item.AKHD }}</h5>
-          <div class="details-block">
-            <div>
-              <ul class="params-list">
-                <li>
-                  <span>VIN</span> <span>{{ item.VIN }}</span>
-                </li>
-                <li>
-                  <span>Комплектация</span> <span>{{ item.equipment }}</span>
-                </li>
-                <li>
-                  <span>Двигатель</span> <span>{{ item.enjene }}</span>
-                </li>
-                <li>
-                  <span>Пробег</span> <span>{{ item.mileage }} км</span>
-                </li>
-                <li>
-                  <span>Число хозяев</span> <span>{{ item.ownersCount }}</span>
-                </li>
-              </ul>
-            </div>
-            <div class="options-list-block">
-              <ul class="first-option-list">
-                <template
-                  v-for="oItem in getSection(item.optionsList, 0, 3)"
-                  :key="oItem"
-                >
-                  <li v-if="optionsListAsyncIndex[oItem]">
-                    {{ optionsListAsyncIndex[oItem].name }}
-                  </li>
-                </template>
-              </ul>
-              <ul class="second-option-list">
-                <li
-                  v-for="oItem in getSection(item.optionsList, 4, 7)"
-                  :key="oItem"
-                >
-                  <span v-if="optionsListAsyncIndex[oItem]">{{
-                    optionsListAsyncIndex[oItem].name
-                  }}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button class="inverse-button">Редактировать</button>
-          <button>Снять с продажи</button>
-          <h6>В продаже с 28 июля 2023 г</h6>
-          <ul class="review-count-list">
-            <li><span>Просмотров всего</span> <span>100500</span></li>
-            <li><span>Просмотров сегодня</span> <span>10050</span></li>
-            <li><span>В избранном всего</span> <span>1200</span></li>
-            <li><span>В избранном сегодня</span> <span>100</span></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
+    <CarList
+      :car-list="filteredActiv"
+      :car-option-list-index="optionsListAsyncIndex"
+      :current-currency="currentCurrency"
+    />
     <!-- /cars list -->
 
     <button class="inverse-button next-list-button">Еще</button>
     <h4 class="general_section__title">Архив</h4>
 
     <!-- cars list -->
-    <ul class="cars-list">
-      <li
-        v-for="(item, index) in filteredArchiv"
-        :key="item.id"
-        :class="{ 'last-item': index == filteredArchiv.length - 1 }"
-      >
-        <div
-          class="car-img"
-          :style="'background-image: url(' + item.img + ')'"
-        ></div>
-
-        <div class="long">
-          <h5>
-            {{ item.developer }} {{ item.model }} {{ item.year }} за
-            {{ item.price * currentCurrency.rate }} {{ currentCurrency.name }}
-          </h5>
-          <h5>AKHD: {{ item.AKHD }}</h5>
-          <div class="details-block">
-            <div>
-              <ul class="params-list">
-                <li>
-                  <span>VIN</span> <span>{{ item.VIN }}</span>
-                </li>
-                <li>
-                  <span>Комплектация</span> <span>{{ item.equipment }}</span>
-                </li>
-                <li>
-                  <span>Двигатель</span> <span>{{ item.enjene }}</span>
-                </li>
-                <li>
-                  <span>Пробег</span> <span>{{ item.mileage }} км</span>
-                </li>
-                <li>
-                  <span>Число хозяев</span> <span>{{ item.ownersCount }}</span>
-                </li>
-              </ul>
-            </div>
-            <div class="options-list-block">
-              <ul class="first-option-list">
-                <li
-                  v-for="oItem in getSection(item.optionsList, 0, 3)"
-                  :key="oItem"
-                >
-                  <span v-if="optionsListAsyncIndex[oItem]">{{
-                    optionsListAsyncIndex[oItem].name
-                  }}</span>
-                </li>
-              </ul>
-              <ul class="second-option-list">
-                <li
-                  v-for="oItem in getSection(item.optionsList, 4, 7)"
-                  :key="oItem"
-                >
-                  <span v-if="optionsListAsyncIndex[oItem]">{{
-                    optionsListAsyncIndex[oItem].name
-                  }}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <button class="inverse-button">Активировать</button>
-        </div>
-      </li>
-    </ul>
+    <CarList
+      :car-list="filteredArchiv"
+      :car-option-list-index="optionsListAsyncIndex"
+      :current-currency="currentCurrency"
+    />
     <!-- /cars list -->
   </section>
 </template>
 <style scoped>
+.personal-area .debug {
+  position: absolute;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  background-color: #fff;
+  opacity: 0.3;
+  margin-top: -80px;
+  margin-left: 150px;
+}
 </style>
