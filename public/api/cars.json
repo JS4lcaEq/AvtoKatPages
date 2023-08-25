@@ -1,7 +1,7 @@
 [
     {
         "id": "1",
-        "img": "upload\/iblock\/faf\/k4esqh0x09mbfjo11sz5qcukxnn5b24o.jpg",
+        "img": "/upload\/iblock\/faf\/k4esqh0x09mbfjo11sz5qcukxnn5b24o.jpg",
         "AKHD": "ANF1583",
         "developer": "Chevrolet",
         "model": "Tahoe",
@@ -18,7 +18,7 @@
     },
     {
         "id": "6",
-        "img": "upload\/iblock\/90f\/f57kzkipk48vvvjz02l0xgu43x1jmvr1\/DSC_3910.jpg",
+        "img": "/upload\/iblock\/90f\/f57kzkipk48vvvjz02l0xgu43x1jmvr1\/DSC_3910.jpg",
         "AKHD": "TRH2471",
         "developer": "Honda",
         "model": "Civic",
